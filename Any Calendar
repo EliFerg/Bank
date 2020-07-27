@@ -1,0 +1,120 @@
+import math
+
+Jan = 31
+Feb = 28
+Mar = 31
+Apr = 30
+May = 31
+Jun = 30
+Jul = 31
+Aug = 31
+Sep = 30
+Oct = 31
+Nov = 30
+Dec = 31
+
+days = 0
+index = 0
+
+Months = [Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
+
+def print_Month_Name(index):
+    switcher = {
+        0: "January",
+        1: "Febuary",
+        2: "March",
+        3: "April",
+        4: "May",
+        5: "June",
+        6: "July",
+        7: "August",
+        8: "September",
+        9: "October",
+        10: "November",
+        11: "December"
+    }
+    print(switcher.get(index, "Invalid"))
+
+    index += 1
+
+    return index
+
+def get_shift(year):
+    this_year = 3
+
+    if year == 2020:
+        shift = this_year
+
+    elif year > 2020:
+        leap_years = (year - 2021) / 4
+        leap_years = math.floor(leap_years)
+
+        shift = (year - 2020 + leap_years + this_year + 1) % 7
+
+    elif year < 2020:
+        leap_years = (2019 - year) / 4
+        leap_years = math.floor(leap_years)
+
+        inv_shift = (2020 - year + leap_years + this_year + 1) % 7
+
+        if inv_shift == 0:
+            inv_shift = 7
+        
+        shift = 7 - inv_shift
+
+    return shift
+
+def print_days(days, shift):
+
+    index = 1
+    shift_pos = 0
+
+    while shift_pos < shift:
+            print("     ", end = '')
+            shift_pos += 1
+
+    shift_pos = shift + 1
+
+    while index <= days:        
+
+        if shift_pos % 7 == 0:
+            print(str(index))
+            index += 1
+            shift_pos += 1
+        elif shift_pos >= 10 + shift:
+            print(str(index) + "   ", end = '')
+            index += 1
+            shift_pos += 1
+        elif shift_pos < 10 + shift:
+            print(str(index) + "    ", end = '')
+            index += 1
+            shift_pos += 1
+        
+    print("\n")
+    year = (shift_pos - 1) % 7
+
+    return year
+
+
+
+def print_year(year):
+
+    if year % 4 == 0:
+        Months[1] = 29
+
+    year = get_shift(year)
+
+    index = 0
+
+    for month in Months:
+
+        index = print_Month_Name(index)
+
+        print("Sun  Mon  Tue  Wed  Thu  Fri  Sat")
+
+        year = print_days(month, year)
+
+year = input("\n\n\n\n\n\nEnter a year: ")
+print("\n\n\n\n\n")
+
+print_year(int(year))
