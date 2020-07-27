@@ -1,0 +1,553 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    //variables
+        string secret;
+        string word[5000] = {};
+        string CWord[50] = {};
+        string line;
+        string cLine;
+        string guess;
+        string gWord;
+        string letter;
+        string response;
+        int index;
+        int dex = 0;
+        int dex2 = 1;
+        int dex3;
+        int dex4;
+        int dex5;
+        int dex6 = 0;
+        int gLen;
+        int sLen;
+        int csLen;
+        int check;
+        bool cont = true;
+        bool cont2, cont3, cont4, cont5, cont6;
+        bool cont7 = true;
+        bool cont8 = false;
+        bool cont9;
+
+        cout <<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl;
+        cout <<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl;
+        cout <<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl;
+        cout <<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl;
+
+
+    cout << "Welcome!" << endl << "Get ready to play..." << endl << "HANGMAN!" << endl<<endl;
+
+        cout << "Player 1, type a secret word:";
+            cin >> secret;
+            cout << endl<<endl;
+
+            sLen = secret.length();    
+            
+            csLen = sLen;
+
+            line[0] = '+';
+            word[0] = '0';
+
+            cout << "Works" << endl;
+            
+            do
+            {
+                word[dex2] = secret[dex];
+
+                //cout << line[dex];
+                
+                cout << word[dex2];
+
+                dex++; 
+                dex2++;
+                line[dex] = '_';               
+
+            }while(dex < csLen);
+
+            csLen = csLen + 1;
+            line[csLen] = '+';
+
+        cout <<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl;
+        cout <<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl;
+        cout <<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl;
+        cout <<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl;
+
+        
+        cout << endl << "Thank you!" << endl<<endl;
+        
+        cout << "Player 2, you have 9 incorrect guesses before the game is over" << endl << endl;
+
+    for(index = 1; cont == true; index++)
+    {
+        do{
+        //cout << "Dex: " << dex << endl;
+        //cout << "Dex2: " << dex2 << endl;
+        //cout << "csLen: " << csLen << endl;
+        //cout << "sLen: " << sLen << "\n\n";
+        dex = 0;//reset index
+
+         do
+        {
+            cout << line[dex]; 
+            dex++;                
+        }while(dex <= csLen);
+
+        cout << endl<<endl;
+
+        do{
+            do{
+                do{
+                    cout << "Guess a letter(l) or word(w): ";
+                        cin >> response;
+
+                        if(response == "l"){
+                            cout << "Guess a letter: ";
+                                cin >> letter;
+                            cont5 = false;
+                        }else if(response == "w"){
+                            cout << "Guess the word: ";
+                                cin >> gWord;
+                            cont5 = false;
+                        }else{
+                            cout << "invalid response" << endl;
+                            cont5 = true;
+                        }
+                    }while (cont5 == true);
+
+                    //cout << word[0] << endl;
+                    cout << endl;
+
+                    dex2 = 1;
+                    dex4 = 1;
+                    bool cont7 = true;
+                    bool cont8 = false;
+
+                    if(response == "l"){
+                        do{
+                            if(cont7 == true && cont8 == true){
+                                cont6 = false;
+                                cout << letter << " is not in the word" << endl;
+
+                                CWord[dex6] = letter;
+
+                                index ++;
+                                dex4 ++;
+                                dex6 ++;
+
+                            }else if(letter == word[dex4]){
+                                cont6 = true;
+                                cont7 = false;                            
+                                //cout << "That is letter: " << dex4 << endl;
+
+                                word[dex4] = "0";
+                                line[dex4] = letter[0];
+
+                                dex4 ++;
+
+                            }else if(letter != word[dex4]){
+                                cont6 = true;
+                                //cout << "That is not letter: " << dex4 << endl;
+
+                                dex4 ++;
+
+                                if(dex4 == csLen && cont7 == true){
+                                    cont8 = true;
+
+                                    dex4 --;
+                                }else if(dex4 <= sLen){
+                                    cont6 == true;
+                                }
+                                //dex4 ++;
+                            }
+                        }while(cont6 == true && dex4 <= csLen);
+
+                    }else if(response == "w"){
+
+                        if(gWord == secret){
+                            cont2 = false;
+                            cout << "You guessed correctly!" << endl;
+                            cout << "Congratulations" << endl;
+                            return 0;
+                        }else if(gWord != secret){
+                            cout << "You did not guess the word correctly!" << endl;
+                            cout << "Try again" << endl;
+                            cont2 = true;
+                            cont3 = true;
+
+                            index ++;
+                        }
+                    }
+                    dex4 = 1;
+
+                    do{
+                        if(word[dex4] == "0"){
+                            cont9 = true;
+
+                            //cout << "L";
+                            
+                            dex4 ++;
+                        }else if(word[dex4] != "0"){
+                            cont9 = false;
+                            dex4 ++;
+                        }
+                    }while(dex4 <= sLen && cont9 == true);
+
+                    //cout << "Cont9 = " << cont9 << endl;
+
+                    if(cont9 == true){
+                        cout << "You Win" << endl;
+                        cout << "The word was " << secret << endl;
+                        return 0;
+                    }else if (cont9 == false){
+                        cont9 = true;
+                    }
+                    
+        switch(index){
+
+            case 1:
+                cout << " ________ " << endl;
+                cout << "  |     | " << endl;
+                cout << "        | " << endl;
+                cout << "        | " << endl;
+                cout << "        | " << endl;
+                cout << "        | " << endl;
+                cout << " _______|_" << endl<<endl;
+                
+                dex = 0;
+                do
+                {
+                    cout << line[dex]; 
+                    dex++;                
+                }while(dex <= csLen);
+
+                cout << endl;
+                cout << "You have tried: ";
+
+                dex5 = 0;
+
+                do
+                {
+                    cout << CWord[dex5]; 
+                    dex5++;                
+                }while(dex5 <= dex6);
+
+                cout << endl<<endl;
+            break;
+
+            case 2:
+                cout << " ________ " << endl;
+                cout << "  |     | " << endl;
+                cout << "  O     | " << endl;
+                cout << "        | " << endl;
+                cout << "        | " << endl;
+                cout << "        | " << endl;
+                cout << " _______|_" << endl<<endl;
+
+                dex = 0;
+                do
+                {
+                    cout << line[dex]; 
+                    dex++;                
+                }while(dex <= csLen);
+
+                cout << endl<<endl;
+                
+                cout << endl;
+                cout << "You have tried: ";
+
+                dex5 = 0;
+
+                do
+                {
+                    cout << '_';
+                    cout << CWord[dex5]; 
+                    dex5++;                
+                }while(dex5 <= dex6);
+
+                cout << endl<<endl;
+            break;
+
+            case 3:
+                cout << " ________ " << endl;
+                cout << "  |     | " << endl;
+                cout << "  O     | " << endl;
+                cout << "  |     | " << endl;
+                cout << "        | " << endl;
+                cout << "        | " << endl;
+                cout << " _______|_" << endl<<endl;
+                
+                dex = 0;
+                do
+                {
+                    cout << line[dex]; 
+                    dex++;                
+                }while(dex <= csLen);
+
+                cout << endl<<endl;
+                
+                cout << endl;
+                cout << "You have tried: ";
+
+                dex5 = 0;
+
+                do
+                {
+                    cout << '_';
+                    cout << CWord[dex5]; 
+                    dex5++;                
+                }while(dex5 <= dex6);
+
+                cout << endl<<endl;
+            break;
+
+            case 4:
+                cout << " ________ " << endl;
+                cout << "  |     | " << endl;
+                cout << "  O     | " << endl;
+                cout << " /|     | " << endl;
+                cout << "        | " << endl;
+                cout << "        | " << endl;
+                cout << " _______|_" << endl<<endl;
+                
+                dex = 0;
+                do
+                {
+                    cout << line[dex]; 
+                    dex++;                
+                }while(dex <= csLen);
+
+                cout << endl<<endl;
+                
+                cout << endl;
+                cout << "You have tried: ";
+
+                dex5 = 0;
+
+                do
+                {
+                    cout << '_';
+                    cout << CWord[dex5]; 
+                    dex5++;                
+                }while(dex5 <= dex6);
+
+                cout << endl<<endl;
+            break;
+
+            case 5:
+                cout << " ________ " << endl;
+                cout << "  |     | " << endl;
+                cout << "  O     | " << endl;
+                cout << " /|\\    | " << endl;
+                cout << "        | " << endl;
+                cout << "        | " << endl;
+                cout << " _______|_" << endl<<endl;
+                
+                dex = 0;
+                do
+                {
+                    cout << line[dex]; 
+                    dex++;                
+                }while(dex <= csLen);
+
+                cout << endl<<endl;
+                
+                cout << endl;
+                cout << "You have tried: ";
+
+                dex5 = 0;
+
+                do
+                {
+                    cout << '_';
+                    cout << CWord[dex5]; 
+                    dex5++;                
+                }while(dex5 <= dex6);
+
+                cout << endl<<endl;
+            break;
+
+            case 6:
+                cout << " ________ " << endl;
+                cout << "  |     | " << endl;
+                cout << "  O     | " << endl;
+                cout << " /|\\    | " << endl;
+                cout << "  |     | " << endl;
+                cout << "        | " << endl;
+                cout << " _______|_" << endl<<endl;
+                
+                dex = 0;
+                do
+                {
+                    cout << line[dex]; 
+                    dex++;                
+                }while(dex <= csLen);
+
+                cout << endl<<endl;
+                
+                cout << endl;
+                cout << "You have tried: ";
+
+                dex5 = 0;
+
+                do
+                {
+                    cout << '_';
+                    cout << CWord[dex5]; 
+                    dex5++;                
+                }while(dex5 <= dex6);
+
+                cout << endl<<endl;
+            break;
+
+            case 7:
+                cout << " ________ " << endl;
+                cout << "  |     | " << endl;
+                cout << "  O     | " << endl;
+                cout << " /|\\    | " << endl;
+                cout << "  |     | " << endl;
+                cout << " /      | " << endl;
+                cout << " _______|_" << endl<<endl;
+                
+                dex = 0;
+                do
+                {
+                    cout << line[dex]; 
+                    dex++;                
+                }while(dex <= csLen);
+
+                cout << endl<<endl;
+                
+                cout << endl;
+                cout << "You have tried: ";
+
+                dex5 = 0;
+
+                do
+                {
+                    cout << '_';
+                    cout << CWord[dex5]; 
+                    dex5++;                
+                }while(dex5 <= dex6);
+
+                cout << endl<<endl;
+                break;
+
+            case 8:
+                cout << " ________ " << endl;
+                cout << "  |     | " << endl;
+                cout << "  O     | " << endl;
+                cout << " /|\\    | " << endl;
+                cout << "  |     | " << endl;
+                cout << " / \\    | " << endl;
+                cout << " _______|_" << endl<<endl;
+                
+                dex = 0;
+                do
+                {
+                    cout << line[dex]; 
+                    dex++;                
+                }while(dex <= csLen);
+
+                cout << endl<<endl;
+                
+                cout << endl;
+                cout << "You have tried: ";
+
+                dex5 = 0;
+
+                do
+                {
+                    cout << '_';
+                    cout << CWord[dex5]; 
+                    dex5++;                
+                }while(dex5 <= dex6);
+
+                cout << endl<<endl;
+            break;
+
+            case 9:
+                cout << " ________ " << endl;
+                cout << "  |     | " << endl;
+                cout << "  O     | " << endl;
+                cout << " /|\\    | " << endl;
+                cout << "  |     | " << endl;
+                cout << "_/ \\    | " << endl;
+                cout << " _______|_" << endl<<endl;
+                
+                dex = 0;
+                do
+                {
+                    cout << line[dex]; 
+                    dex++;                
+                }while(dex <= csLen);
+
+                cout << endl<<endl;
+                
+                cout << endl;
+                cout << "You have tried: ";
+
+                dex5 = 0;
+
+                do
+                {
+                    cout << '_';
+                    cout << CWord[dex5]; 
+                    dex5++;                
+                }while(dex5 <= dex6);
+
+                cout << endl<<endl;
+            break;
+
+            case 10:
+                cout << " ________ " << endl;
+                cout << "  |     | " << endl;
+                cout << "  O     | " << endl;
+                cout << " /|\\    | " << endl;
+                cout << "  |     | " << endl;
+                cout << "_/ \\_   | " << endl;
+                cout << " _______|_" << endl<<endl;
+                
+                dex = 0;
+                do
+                {
+                    cout << line[dex]; 
+                    dex++;                
+                }while(dex <= csLen);
+
+                cout << endl<<endl;
+                
+                cout << endl;
+                cout << "You have tried: ";
+
+                dex5 = 0;
+
+                do
+                {
+                    cout << '_';
+                    cout << CWord[dex5];
+                    dex5++;
+                }while(dex5 <= dex6);
+
+                cout << endl<<endl;
+
+                cout << "You are out of guesses \n You have lost the game" << endl<<endl;
+                cout << "The secret word was " << secret << endl;
+                return 0;
+            break;
+
+            default:
+            break;
+                cout << "Invalid response" << endl<<endl;
+        }//switch
+                        }while(cont2 == true && dex2 <= sLen);
+        
+     }while(cont3 == true);//main do loop
+     
+    }while(cont == true && index < 9);
+        
+    }//for loop
+
+    return 0;
+}//int main
